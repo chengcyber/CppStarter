@@ -1,0 +1,5 @@
+#File: .gitignore
+
+# ignore files suffix
+*.ncb
+Debug
