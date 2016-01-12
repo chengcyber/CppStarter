@@ -174,11 +174,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Areacodes.txt"
+				RelativePath=".\card.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\FindAeraCodes.cpp"
+				RelativePath=".\card.h"
+				>
+			</File>
+			<File
+				RelativePath=".\cardmain.cpp"
 				>
 			</File>
 		</Filter>

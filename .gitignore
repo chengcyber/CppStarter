@@ -3,3 +3,5 @@
 # ignore files suffix
 *.ncb
 Debug
+Blank Project/Blank Project.vcproj.*
+
