@@ -8,6 +8,14 @@
 #include "strlib.h"
 using namespace std;
 
+/* extern statement */
+
+
+extern const int ACE = 1;
+extern const int JACK = 11;
+extern const int QUEEN = 12;
+extern const int KING = 13;
+
 /* Function prototype */
 string suitToString(Suit su);
 
@@ -35,7 +43,13 @@ Suit Card::getSuit() {return suit;}
  * show the ivars to string like "2H" and overload << operator
  */
 string Card::toString() {
-	return ( integerToString(rank) + suitToString(suit) );
+	string prefix;
+	if (rank == ACE) prefix = "A";
+	else if (rank == JACK) prefix = "J";
+	else if (rank == QUEEN) prefix = "Q";
+	else if (rank == KING) prefix = "K";
+	else prefix = integerToString(rank);
+	return (prefix + suitToString(suit).substr(0,1));
 }
 
 string suitToString(Suit su) {
@@ -47,3 +61,26 @@ string suitToString(Suit su) {
 		default : return "?"; break;
 	}
 }
+
+
+/*
+ * Operator Overloading: ++ for enum Suit.
+ * Usage: s++, ++s
+ * ---------------
+*/ 
+
+Suit operator++(Suit & su) {
+	su = Suit(su + 1);
+	return su;
+}
+
+Suit operator++(Suit & su, int) {
+	Suit old = su;
+	su = Suit(su + 1);
+	return old;
+}
+
+ostream & operator<<(ostream & os, Card car) {
+	return os << car.toString();
+}
+
