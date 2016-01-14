@@ -174,15 +174,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\card.cpp"
+				RelativePath=".\calendar.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\card.h"
+				RelativePath=".\calendar.h"
 				>
 			</File>
 			<File
-				RelativePath=".\cardmain.cpp"
+				RelativePath=".\calendarmain2.cpp"
 				>
 			</File>
 		</Filter>
