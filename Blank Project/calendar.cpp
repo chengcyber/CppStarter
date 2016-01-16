@@ -13,9 +13,6 @@
 using namespace std;
 
 /* Function prototypes */
-void nextDay(Date & date);
-void lastDay(Date & date);
-
 
 /*
  * Implementation note: dayInMonth
@@ -55,12 +52,22 @@ int daysInMonth(Month month, int year) {
  * These functions use the remainder operator to cycle through the
  * internal values of the enumeration type.
  */
-Month lastMonth(Month month) {
-	return Month((month + 11) % 12);
+Month lastMonth(Month mo) {
+	if (mo == JANUARY) {
+		mo = DECEMBER;
+	} else {
+		mo = Month(mo - 1);
+	}
+	return mo;
 }
 
-Month nextMonth(Month month) {
-	return Month((month + 1) % 12);
+Month nextMonth(Month mo) {
+	if (mo == DECEMBER) {
+		mo = JANUARY;
+	} else {
+		mo = Month(mo + 1);
+	}
+	return mo;
 }
 
 
@@ -106,12 +113,12 @@ ostream & operator<<(ostream & os, Month & mon) {
  * Suffix ++ give the nextMonth and returns the original month.
  */
 Month operator++(Month & mon) {
-	return mon = Month((mon + 1));
+	return nextMonth(mon);
 }
 
 Month operator++(Month & mon, int) {
 	Month org = mon;
-	mon = Month((mon + 1));
+	mon = nextMonth(mon);
 	return org;
 }
 
@@ -163,14 +170,14 @@ string Date::toString() {
 
 
 
-ostream & operator<< (ostream & os, Date::Date & date) {
+ostream & operator<< (ostream & os, Date & date) {
 	return os << date.toString();
 }
 
 bool operator== (Date & d1, Date & d2) {
-	return (d1.getDay() == d2.getDay() &&
-		d1.getMonth() == d2.getMonth() &&
-		d1.getYear() == d2.getYear());
+	return (d1.day == d2.day &&
+		d1.month == d2.month &&
+		d1.year == d2.year);
 }
 
 bool operator!= (Date & d1, Date & d2) {
@@ -187,55 +194,84 @@ bool operator>= (Date & d1, Date & d2) {
 }
 
 bool operator< (Date & d1, Date & d2) {
-	if (d1.getDay() < d2.getDay()) 
+	if (d1.year < d2.year) 
 		return true;
-	else if (d1.getMonth() < d2.getMonth())
-		return true;
-	else if (d1.getYear() < d2.getYear())
-		return true;
-	else
-		return false;
+	else if (d1.year == d2.year)
+		if (d1.month < d2.month)
+			return true;
+		else if (d1.month == d2.month)
+			if (d1.day < d2.day)
+				return true;
+	return false;
 }
 
 bool operator> (Date & d1, Date & d2) {
-	if (d1.getDay() > d2.getDay()) 
+	if (d1.year > d2.year) 
 		return true;
-	else if (d1.getMonth() > d2.getMonth())
-		return true;
-	else if (d1.getYear() > d2.getYear())
-		return true;
-	else
-		return false;
+	else if (d1.year == d2.year)
+		if (d1.month > d2.month)
+			return true;
+		else if (d1.month == d2.month)
+			if (d1.day > d2.day)
+				return true;
+	return false;
 }
 
 
 Date operator+ (Date d1, int n) {
 	for(int i = 0; i < n; i++)
-		nextDay(d1);
+		d1.nextDay();
 	return d1;
 }
 
 Date operator- (Date d1, int n) {
 	for(int i = 0; i < n; i++)
-		lastDay(d1);
+		d1.lastDay();
 	return d1;
 }
 
 
-Date & operator+= (int n) {
-	this = this + n;
-	return this;
+Date & operator+= (Date & d1, int n) {
+	d1 = d1 + n;
+	return d1;
 }
 
-Date & operator-= (int n) {
-	this = this - n;
-	return this;
+Date & operator-= (Date & d1, int n) {
+	d1 = d1 - n;
+	return d1;
 }
 
-void nextDay(Date & date) {
+void Date::nextDay() {
+	// int day = date.getDay();
+	// Month month = date.getMonth();
+	// int year = date.getYear();
+
+	if (day == daysInMonth(month, year)) {
+		if (month == DECEMBER) {
+			year++;
+		}
+		month = nextMonth(month);
+		day = 1;
+	} else {
+		day++;
+	}
 
 }
 
-void lastDay(Date & date) {
+void Date::lastDay() {
+
+	// int day = date.getDay();
+	// Month month = date.getMonth();
+	// int year = date.getYear();
+
+	if (day == 1) {
+		if (month == JANUARY) {
+			year--;
+		}
+		month = lastMonth(month);
+		day = daysInMonth(month, year);
+	} else {
+		day--;
+	}
 
 }

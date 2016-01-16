@@ -71,6 +71,17 @@ public:
 
  	std::string toString();
 
+   friend bool operator== (Date & d1, Date & d2);
+   friend bool operator!= (Date & d1, Date & d2);
+
+   friend bool operator<= (Date & d1, Date & d2);
+   friend bool operator>= (Date & d1, Date & d2);
+   friend bool operator< (Date & d1, Date & d2);
+   friend bool operator> (Date & d1, Date & d2);
+
+   void nextDay();
+   void lastDay();
+
 
 private:
 	Month month;
@@ -103,7 +114,7 @@ bool isLeapYear(int year);
  * --------------------------------
  * Returns the last month of Month month.
  */
-Month lastMonth(Month month);
+Month lastMonth(Month mo);
 
 /*
  * Function: nextMonth
@@ -111,7 +122,7 @@ Month lastMonth(Month month);
  * -------------------------------------
  * Returns the next month of Month month.
  */
-Month nextMonth(Month month);
+Month nextMonth(Month mo);
 
 /*
  * Function monthToString
@@ -142,26 +153,26 @@ std::ostream & operator<< (std::ostream & os, Date & date);
  * Returns true if d1 and d2 contains same value (==)
  * != in the other hand.
  */
-friend bool operator== (Date & d1, Date & d2);
-friend bool operator!= (Date & d1, Date & d2);
+bool operator== (Date & d1, Date & d2);
+bool operator!= (Date & d1, Date & d2);
 
 /*
  * Operator: <=, >=, <, >
  * -------------------------
  * Relation operators, Compare the values of d1 and d2.
  */
-friend bool operator<= (Date & d1, Date & d2);
-friend bool operator>= (Date & d1, Date & d2);
-friend bool operator< (Date & d1, Date & d2);
-friend bool operator> (Date & d1, Date & d2);
+bool operator<= (Date & d1, Date & d2);
+bool operator>= (Date & d1, Date & d2);
+bool operator< (Date & d1, Date & d2);
+bool operator> (Date & d1, Date & d2);
 
 /*
  * Operator: +, -
  * -------------------------
  * Methematics operators.
  */
-friend Date operator+ (Date d1, int n);
-friend Date operator- (Date d1, int n);
+Date operator+ (Date d1, int n);
+Date operator- (Date d1, int n);
 
 /*
  * Operator: +=, -=
@@ -169,8 +180,8 @@ friend Date operator- (Date d1, int n);
  * shorthand operators.
  * Returns the next n day of date. (+=)
  */
-Date & operator+= (int n);
-Date & operator-= (int n);
+Date & operator+= (Date & d1, int n);
+Date & operator-= (Date & d1, int n);
 
 /*
  * Operator Overloading: ++
