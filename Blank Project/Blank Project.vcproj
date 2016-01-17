@@ -174,15 +174,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\calendar.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\calendar.h"
-				>
-			</File>
-			<File
-				RelativePath=".\calendarmain2.cpp"
+				RelativePath=".\ExpressionCalculator.cpp"
 				>
 			</File>
 		</Filter>
