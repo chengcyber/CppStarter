@@ -59,11 +59,19 @@ void getDigitVec(string digits, Vector<string> &vec, int start, int finish) {
 }
 
 void compareLex(Set<string> &set, Lexicon &lex) {
-	Set<string> result;
+	Set<string> result;	
 	foreach(string s in set) {
-		if (lex.containsPrefix(s)) result += s;
+		if (!lex.containsPrefix(s)) set -= s;
 	}
-	cout << result.toString() << endl;
+	cout << set.toString() << endl;
+	foreach(string word in lex) {
+		foreach(string s in set) {
+			if (word.substr(0,s.length()) == s) {
+				cout << word << endl;
+			} 
+		}
+	}
+
 }
 
 string getStringT9(char ch) {
