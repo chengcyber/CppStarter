@@ -22,18 +22,21 @@ using namespace std;
 
 /* Function prototyep */
 bool canCuted(Vector<int> & vec, int length);
-Vector<int> getSubSetCuted(Vector<int> & vec, int length);
+void subSetSum(Vector<int> & vec, int length, Vector<int> & result);
+// int CutStock(Vector<int> & requests, int stockLength);
 
 /* Main program */
 
 int main() 
 {
-	Vector<int> stock;
-	stock += 4,3,4,1,7,8;
+	Vector<int> stock, result;
+	// stock += 4,3,4,1,7,8;
+	stock += 7,3,1;
 
 	cout << canCuted(stock, 10) << endl;
 
-	cout << getSubSetCuted(stock, 10).toString() << endl;
+	subSetSum(stock, 10, result);
+	cout << result.toString() << endl;
 
 	return 0;
 }
@@ -51,16 +54,41 @@ bool canCuted(Vector<int> & vec, int length) {
 
 }
 
-Vector<int> getSubSetCuted(Vector<int> & vec, int length) {
-	Vector<int> result;
-	if (vec.isEmpty() || length < 0) {
+void subSetSum(Vector<int> & vec, int length, Vector<int> & result) {
+	if (length == 0) {
+		result.add(0);
+		cout << result.toString() << endl;
+	} else if (vec.isEmpty() || length < 0) {
 
 	} else {
 		Vector<int> rest = vec;
 		int element = rest[0];
 		rest.remove(0);
-		foreach(int n in getSubSetCuted(rest, length - element))
-			result.add(element);
+		for (int i = 0; i < rest.size(); i++) {
+			subSetSum(rest, length - element, result);
+			for(int j = 0; j < result.size(); j++)
+				if (result[j] == 0) result[j] = element;
+		}
 	}
-	return result;
 }
+
+// int CutStock(Vector<int> & requests, int stockLength) {
+// 	if (stockLength == 0) return count ;
+// 	Vector<int> rest = requests;
+// 	int count = 0;
+// 	Vector<int> subSum = subSetSum(rest, stockLength);
+// 	if (subSum.isEmpty()) {
+// 		return count + CutStock(rest, stockLength -1);
+// 	} else {
+// 		for(int i = 0; i < rest.size(); i++) {
+// 			for (int j = 0 ; j < subSum.size(); j++) {
+// 				if (rest[i] == subSum[j]) {
+// 					subSum.remove(j);
+// 					rest.remove(i);
+// 				}
+
+// 			}
+// 		}
+// 		return 1 + CutStock(rest, stockLength);
+// 	}
+// }
