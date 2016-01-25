@@ -23,8 +23,8 @@ using namespace std;
 
 /* Function prototyep */
 bool canCuted(Vector<int> & vec, int length);
-// bool isSubVec(Vector<int> subvec, Vector<int> vec);
 Map<int, Vector<int> > subSetSumVecs(Vector<int> & vec, int length);
+bool delSameFrom(Vector<int> & sub, Vector<int> & requests);
 int CutStock(Vector<int> & requests, int stockLength);
 
 
@@ -44,15 +44,18 @@ int main()
 	cout << "canBeCuted? " << canCuted(stock, length) << endl;
 	cout << "------------------" << endl;
 
-	// cout << subSetSumVecs(stock, length).toString() << endl;
-	// cout << "------------------" << endl;
-
-	cout << CutStock(stock, length) << endl;
+	cout << "The stock can be cuted by "
+	<< CutStock(stock, length) << endl;
 
 
 	return 0;
 }
-
+/*
+ * Function:canCuted
+ * Usage: if(canCuted(vec, length)) ...
+ * -------------------------
+ * Returns true if subvec can sum to length.
+ */
 bool canCuted(Vector<int> & vec, int length) {
 	if (length < 0) {
 		return false;
@@ -67,11 +70,17 @@ bool canCuted(Vector<int> & vec, int length) {
 
 }
 
+/*
+ * Function: subSetSumVecs
+ * Usage: Map<int, Vector<int> > map = subSetSumVecs(vec, length)
+ * -------------------------
+ * Return all subVec into Map structure.
+ */
 Map<int, Vector<int> > subSetSumVecs(Vector<int> & vec, int length) {
 	Map<int, Vector<int> > result;
 	int index = 0;
 	if (length == 0) {
-		cout << "Finded one subSet" << endl;
+		// cout << "Finded one subSet" << endl;
 		Vector<int> initVec;
 		initVec += 0;
 		result.put(index, initVec);
@@ -105,6 +114,12 @@ Map<int, Vector<int> > subSetSumVecs(Vector<int> & vec, int length) {
 }
 
 
+/*
+ * Function: CutStock
+ * Usage: int n = CutStock(stock, length)
+ * -------------------------
+ * Return the value of the stock vec can be cutted by length.
+ */
 int CutStock(Vector<int> & requests, int stockLength) {
 	int count = 0;
 	if ( stockLength == 0) {
@@ -116,33 +131,42 @@ int CutStock(Vector<int> & requests, int stockLength) {
 		while (true) {
 			Map<int, Vector<int> > map = subSetSumVecs(requests, stockLength);
 			if (map.isEmpty()) break;
-			Vector<int> tmp = map.get(0);
-			// if (!isSubVec(tmp, requests)) break; 
-			cout << "Find one cuted:" << tmp.toString() << endl;
-			for(int i = 0; i < requests.size(); i++) {
-				for(int j = 0; j < tmp.size(); j++) {
-					if (tmp[j] == requests[i]) {
-						requests.remove(i);
-						tmp.remove(j);
-						j--;
-						// cout << requests.toString() << endl;
-						// cout << tmp.toString() << endl;
-					}
-				}
+			foreach(int n in map) {
+				Vector<int> tmp = map.get(n);
+				if(delSameFrom(tmp, requests)) count++;
 			}
-			// if (tmp.isEmpty())
-				count++;
-			// else
-				// break;
 		}
 		return count + CutStock(requests, stockLength - 1);
 	}
 	return count;
 }
 
-// bool isSubVec(Vector<int> subvec, Vector<int> vec) {
-// 	foreach(int n in subvec) {
 
-// 	}
+/*
+ * Function: delSameFrom
+ * Usage: if(delSameFrom(sub, vec)) ...
+ * -------------------------
+ * If sub can be completely eliminate the same value with vec,
+ * meanwhile return true if sub is completely 
+ */
+bool delSameFrom(Vector<int> & sub, Vector<int> & requests) {
+	Vector<int> tmp = requests;
+	int count = 0;
+	for(int i = 0; i < sub.size(); i++) {
+		bool finded = false;
+		for(int j = 0; j < tmp.size(); j++) {
+			if ( sub[i] == tmp[j] && !finded) {
+				tmp.remove(j);
+				j--;
+				finded = true;
+				count++;
+			}
+		}
+	}
 
-// }
+	if(count == sub.size()) {
+		requests = tmp;
+		return true;
+	} 
+	return false;
+}
