@@ -174,7 +174,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\CutStock.cpp"
+				RelativePath=".\domino.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\domino.h"
+				>
+			</File>
+			<File
+				RelativePath=".\testDominoMain.cpp"
 				>
 			</File>
 		</Filter>
