@@ -174,7 +174,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\FindDuplicate.cpp"
+				RelativePath=".\intarray.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\intarray.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IntArrayMain.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\intarraypriv.h"
 				>
 			</File>
 		</Filter>
