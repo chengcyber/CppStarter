@@ -68,6 +68,7 @@ public:
  * at the end of the buffer, the method has no effect.
  */
    void deleteCharacter();
+   void deleteWord();
 /*
  * Method: showContents
  * Usage: buffer.showContents();
@@ -76,6 +77,17 @@ public:
  * position of the cursor.
  */
    void showContents();
+/*
+ * Methods: moveCursorForwardWord, moveCursorBackwardWord
+ * Usage: buffer.moveCursorForwardWord()
+ *		  buffer.moveCursorBackwardWord()
+ * ----------------------------------
+ * These functions move the cursor forward or backward one word,
+ * respectively. If the command would shift the coursor beyond either
+ * end of the buffer, this method has no effect.
+ */
+ 	void moveCursorForwardWord();
+ 	void moveCursorBackwardWord();
 #include "editorbufferpriv.h"
 };
 
