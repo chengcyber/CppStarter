@@ -174,19 +174,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\intarray.cpp"
+				RelativePath=".\editorbuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\intarray.h"
+				RelativePath=".\editorbuffer.h"
 				>
 			</File>
 			<File
-				RelativePath=".\IntArrayMain.cpp"
+				RelativePath=".\editorbufferpriv.h"
 				>
 			</File>
 			<File
-				RelativePath=".\intarraypriv.h"
+				RelativePath=".\SimpleTextEditor.cpp"
 				>
 			</File>
 		</Filter>
