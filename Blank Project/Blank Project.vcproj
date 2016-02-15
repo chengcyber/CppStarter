@@ -174,7 +174,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\FindMajority.cpp"
+				RelativePath=".\editorbuffer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\editorbuffer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\editorbufferpriv.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SimpleTextEditor.cpp"
 				>
 			</File>
 		</Filter>
