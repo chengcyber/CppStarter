@@ -8,6 +8,7 @@
 #include <cctype>
 #include "editorbuffer.h"
 #include "simpio.h"
+#include "strlib.h"
 using namespace std;
 /* Function prototypes */
 void executeCommand(EditorBuffer & buffer, string line);
@@ -17,7 +18,7 @@ int main() {
    while (true) {
       string cmd = getLine("*");
       if (cmd != "") executeCommand(buffer, cmd);
-      buffer.showContents();
+      // buffer.showContents();
    }
    return 0;
 }
@@ -28,16 +29,38 @@ int main() {
  * Executes the command specified by line on the editor buffer.
  */
 void executeCommand(EditorBuffer & buffer, string line) {
+  int num = 0;
+  int index = 0;
+  for(int i = 0; i < line.length(); i++){
+    if(line[i] >= '0' && line[i] <= '9') {
+      num = num * 10 + line[i] - '0';
+    } else {
+      index = i;
+      break;
+    }
+  }
+  if(num == 0) num = 1;
+  line = line.substr(index);
    switch (toupper(line[0])) {
     case 'I': for (int i = 1; i < line.length(); i++) {
-                 buffer.insertCharacter(line[i]);
+                buffer.insertCharacter(line[i]);
               }
               break;
-    case 'D': buffer.deleteCharacter(); break;
-    case 'F': buffer.moveCursorForward(); break;
-    case 'B': buffer.moveCursorBackward(); break;
+    case 'D': for(int i = 0; i < num; i++ ) {
+                buffer.deleteCharacter(); 
+              }
+              break;
+    case 'F': for(int i = 0; i < num; i++ ) {
+                buffer.moveCursorForward();
+              } 
+              break;
+    case 'B': for(int i = 0; i < num; i++ ) {
+                buffer.moveCursorBackward();
+              }
+              break;
     case 'J': buffer.moveCursorToStart(); break;
     case 'E': buffer.moveCursorToEnd(); break;
+    case 'T': buffer.showContents();break;
     case 'Q': exit(0);
     default:  cout << "Illegal command" << endl; break;
    }

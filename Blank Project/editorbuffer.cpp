@@ -5,6 +5,7 @@
  */
 #include <iostream>
 #include "editorbuffer.h"
+#include "vector.h"
 using namespace std;
 /* Constants */
 const int INITIAL_CAPACITY = 10;
