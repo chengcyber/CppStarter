@@ -41,6 +41,36 @@ void EditorBuffer::moveCursorToStart() {
 void EditorBuffer::moveCursorToEnd() {
    cursor = length;
 }
+void EditorBuffer::moveCursorForwardWord() {
+	if( cursor < length) {
+		if(isspace(array[cursor])) {
+			while(true) {
+				if((cursor == length) || !isspace(array[cursor])) break;
+				cursor++;
+			}
+		} else {
+			while(true) {
+				if((cursor == length) || isspace(array[cursor])) break;
+				cursor++;
+			}
+		}
+	}
+}
+void EditorBuffer::moveCursorBackwardWord() {
+	if (cursor > 0) {
+		if (isspace(array[cursor - 1])) {
+			while(true) {
+				if((cursor == 0) || !isspace(array[cursor - 1])) break;
+				cursor--;
+			}
+		} else {
+			while(true) {
+				if((cursor == 0) || isspace(array[cursor - 1])) break;
+				cursor--;
+			}
+		}
+	}
+}
 
 /*
  * Implementation notes: insertCharacter and deleteCharacter
@@ -66,6 +96,17 @@ void EditorBuffer::deleteCharacter() {
       length--;
    }
 }
+void EditorBuffer::deleteWord() {
+	while (cursor < length) {
+		if(!isspace(array[cursor])) break;
+		this->deleteCharacter();
+	}
+	while (cursor < length) {
+		if(isspace(array[cursor])) break;
+		this->deleteCharacter();
+	}
+}
+
 /*
  * Implementation notes: showContents
  * ----------------------------------
@@ -82,6 +123,7 @@ void EditorBuffer::showContents() {
       cout << ' ';
    cout << "^" << endl;
 }
+
 
 /*
  * Implementation note: expandCapacity

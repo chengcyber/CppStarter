@@ -5,6 +5,7 @@
  * used to test the EditorBuffer class.
  */
 #include <iostream>
+#include <string>
 #include <cctype>
 #include "editorbuffer.h"
 #include "simpio.h"
@@ -18,7 +19,7 @@ int main() {
    while (true) {
       string cmd = getLine("*");
       if (cmd != "") executeCommand(buffer, cmd);
-      // buffer.showContents();
+      buffer.showContents();
    }
    return 0;
 }
@@ -56,6 +57,14 @@ void executeCommand(EditorBuffer & buffer, string line) {
               break;
     case 'B': for(int i = 0; i < num; i++ ) {
                 buffer.moveCursorBackward();
+              }
+              break;
+    case 'W': if(toupper(line[1]) == 'F') {
+                buffer.moveCursorForwardWord();
+              } else if(toupper(line[1]) == 'B') {
+                buffer.moveCursorBackwardWord(); 
+              } else if(toupper(line[1]) == 'D') {
+                buffer.deleteWord();
               }
               break;
     case 'J': buffer.moveCursorToStart(); break;
