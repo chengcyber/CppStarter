@@ -108,6 +108,14 @@ public:
  * the array.
  */
  	bool search(std::string str);
+/*
+ * Method: replace
+ * Usage: buffer.repalce(oldStr, newStr)
+ * ----------------------------------
+ * The function search the array for oldStr and replace it using
+ * the newStr.
+ */
+ 	bool replace(std::string oldStr, std::string newStr);
 #include "editorbufferpriv.h"
 };
 

@@ -173,7 +173,7 @@ void EditorBuffer::paste() {
  * -------------------------
  * go throught all the element in array to get the same char[].
  * if it finds it, leave the cursor after the last character in str
- * and return ture. If str does not occur between the cursor and the end
+ * and return true. If str does not occur between the cursor and the end
  * of the buffer, then return false.
  */
 bool EditorBuffer::search(string str) {
@@ -194,5 +194,22 @@ bool EditorBuffer::search(string str) {
    }
    if(index == -1) return false;
    cursor = index;
+   return true;
+}
+
+/*
+ * Implementation note: repalce
+ * -------------------------
+ * search the buffer text, if exists then replace the text.
+ */
+bool EditorBuffer::replace(string oldStr, string newStr) {
+   if(!this->search(oldStr)) return false;
+   cursor -= oldStr.length();
+   for(int i = 0; i < oldStr.length(); i++) {
+      this->deleteCharacter();
+   }
+   for(int i = 0; i < newStr.length(); i++) {
+      this->insertCharacter(newStr[i]);
+   }
    return true;
 }

@@ -42,6 +42,9 @@ void executeCommand(EditorBuffer & buffer, string line) {
   }
   if(num == 0) num = 1;
   line = line.substr(index);
+  string oldStr = "";
+  string newStr = "";
+  bool isOld = true;
   int cpNum = 0;
    switch (toupper(line[0])) {
     case 'I': for (int i = 1; i < line.length(); i++) {
@@ -94,6 +97,19 @@ void executeCommand(EditorBuffer & buffer, string line) {
                 cout << "Not finded!" << endl;
               }
               break;
+    case 'R': line = line.substr(1);
+              for(int i = 0; i < line.length(); i++) {
+                if(line[i] == '/') {
+                  isOld = false; continue;
+                }
+                if(isOld)
+                  oldStr += line[i];
+                else
+                  newStr += line[i];
+              }
+              if(!buffer.replace(oldStr, newStr)) {
+                cout << "Not finded!" << endl;
+              }
     case 'P': buffer.paste(); break;
     case 'J': buffer.moveCursorToStart(); break;
     case 'E': buffer.moveCursorToEnd(); break;
