@@ -42,6 +42,7 @@ void executeCommand(EditorBuffer & buffer, string line) {
   }
   if(num == 0) num = 1;
   line = line.substr(index);
+  int cpNum = 0;
    switch (toupper(line[0])) {
     case 'I': for (int i = 1; i < line.length(); i++) {
                 buffer.insertCharacter(line[i]);
@@ -67,6 +68,16 @@ void executeCommand(EditorBuffer & buffer, string line) {
                 buffer.deleteWord();
               }
               break;
+    case 'C': 
+              for(int i = 1; i < line.length(); i++) {
+                if(isdigit(line[i]))
+                  cpNum = 10 * cpNum + line[i] - '0'; 
+                else 
+                  break;
+              }
+              buffer.copy(cpNum); 
+              break;
+    case 'P': buffer.paste(); break;
     case 'J': buffer.moveCursorToStart(); break;
     case 'E': buffer.moveCursorToEnd(); break;
     case 'T': buffer.showContents();break;

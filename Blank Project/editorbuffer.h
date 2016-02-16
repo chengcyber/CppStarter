@@ -88,6 +88,17 @@ public:
  */
  	void moveCursorForwardWord();
  	void moveCursorBackwardWord();
+/*
+ * Methods: copy, paste 
+ * Usage: buffer.copy(n)
+ * 		  buffer.paste
+ * ----------------------------------
+ * These function provide the facility that allows user to copy a section
+ * of the buffer text into an internal storage area and then paste it back
+ * in at some other position.
+ */
+ 	void copy(int n);
+ 	void paste();
 #include "editorbufferpriv.h"
 };
 
