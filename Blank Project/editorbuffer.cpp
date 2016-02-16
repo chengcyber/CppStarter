@@ -4,6 +4,7 @@
  * This file implements the buffer.h interface using an array representation.
  */
 #include <iostream>
+#include <string>
 #include "editorbuffer.h"
 #include "vector.h"
 using namespace std;
@@ -165,4 +166,33 @@ void EditorBuffer::paste() {
          this->insertCharacter(copyArr[i]);
       }
    }
+}
+
+/*
+ * Implementation note: search
+ * -------------------------
+ * go throught all the element in array to get the same char[].
+ * if it finds it, leave the cursor after the last character in str
+ * and return ture. If str does not occur between the cursor and the end
+ * of the buffer, then return false.
+ */
+bool EditorBuffer::search(string str) {
+   if(str == "") return false;
+   int index = -1;
+   for(int i = cursor; i < length; i++) {
+      if(index != -1) break;
+      if(array[i] == str[0]) {
+         index = i + 1;
+         for(int j = 1; j < str.length(); j++) {
+            if (array[i + j] != str[j]) {
+               index = -1;
+               break;
+            }
+            index++;
+         }
+      }
+   }
+   if(index == -1) return false;
+   cursor = index;
+   return true;
 }

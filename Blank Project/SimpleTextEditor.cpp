@@ -88,6 +88,12 @@ void executeCommand(EditorBuffer & buffer, string line) {
                 buffer.deleteCharacter();
               }
               break;
+    case 'S': line = line.substr(1);
+              // cout << "\"" << line << "\"" << endl;
+              if(!buffer.search(line)) {
+                cout << "Not finded!" << endl;
+              }
+              break;
     case 'P': buffer.paste(); break;
     case 'J': buffer.moveCursorToStart(); break;
     case 'E': buffer.moveCursorToEnd(); break;

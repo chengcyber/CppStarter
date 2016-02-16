@@ -8,6 +8,7 @@
 #ifndef _editorbuffer_h
 #define _editorbuffer_h
 
+#include <string>
 /*
  * Class: EditorBuffer
  * -------------------
@@ -99,6 +100,14 @@ public:
  */
  	void copy(int n);
  	void paste();
+/*
+ * Method: search
+ * Usage: buffer.search(str)
+ * ----------------------------------
+ * The function search the array to figure out whether the string exists in
+ * the array.
+ */
+ 	bool search(std::string str);
 #include "editorbufferpriv.h"
 };
 
