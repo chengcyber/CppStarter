@@ -77,6 +77,17 @@ void executeCommand(EditorBuffer & buffer, string line) {
               }
               buffer.copy(cpNum); 
               break;
+    case 'X': for(int i = 1; i < line.length(); i++) {
+                if(isdigit(line[i]))
+                  cpNum = 10 * cpNum + line[i] - '0'; 
+                else 
+                  break;
+              }
+              buffer.copy(cpNum); 
+              for(int i = 0; i < cpNum; i++) {
+                buffer.deleteCharacter();
+              }
+              break;
     case 'P': buffer.paste(); break;
     case 'J': buffer.moveCursorToStart(); break;
     case 'E': buffer.moveCursorToEnd(); break;
