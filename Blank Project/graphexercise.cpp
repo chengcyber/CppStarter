@@ -31,6 +31,7 @@ struct arcT
 
 void readGraph(Graph<nodeT, arcT> & g, ifstream & infile);
 void graphAddNode(Graph<nodeT, arcT> & g, string & str);
+void writeGraph(Graph<nodeT, arcT> & g, ofstream & outfile);
 
 int main()
 {
@@ -38,8 +39,10 @@ int main()
 	Graph<nodeT, arcT> g;
 
 	ifstream infile;
+	ofstream outfile;
 	// infile.open("airlines.txt");
 	readGraph(g, infile);
+	writeGraph(g, outfile);
 
 
 	return 0;
@@ -123,4 +126,14 @@ void graphAddNode(Graph<nodeT, arcT> & g, string & str) {
 	if(node == NULL) {
 		g.addNode(str);
 	}
+}
+
+void writeGraph(Graph<nodeT, arcT> & g, ofstream & outfile) {
+	// outfile.open("airGraphs.txt");
+	// foreach (nodeT *node in g.getNodeSet()) {
+		foreach(arcT *arc in g.getArcSet()) {
+			cout << arc->start->name << " -> " << arc->finish->name << " ("
+				<< arc->distance << ")" << endl;
+		}
+	// }
 }
