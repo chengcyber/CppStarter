@@ -174,11 +174,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\airlines.txt"
+				RelativePath=".\lexicon.txt"
 				>
 			</File>
 			<File
-				RelativePath=".\graphexercise.cpp"
+				RelativePath=".\trielexicon.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\trielexicon.h"
+				>
+			</File>
+			<File
+				RelativePath=".\trielexiconmain.cpp"
 				>
 			</File>
 		</Filter>
