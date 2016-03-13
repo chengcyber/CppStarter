@@ -60,28 +60,29 @@ bool TrieLexicon::isEmpty() const {
  * Adds a new word to the internal TrieTree structure.
  */
 void TrieLexicon::add(string word) {
+	trieTree *tp;
 	if (isEmpty()) {
-		trie = new trieTree();
-		trie->trieArr = new trieTree*[CAPACITY_COUNT];
+		tp = new trieTree();
+		tp->trieArr = new trieTree*[CAPACITY_COUNT];
 		for (int i = 0; i < CAPACITY_COUNT; i++) {
-			trie->trieArr[i] = NULL;
+			tp->trieArr[i] = NULL;
 		}
-		trie->contain = false;
+		tp->contain = false;
+		trie = tp;
 	}
-	trieTree *tp = trie;
+	tp = trie;
 	for (int i = 0; i < word.length(); i++) {
 		int index = toupper(word[i]) - 'A';
 		if (tp->trieArr[index] == NULL) {
-			tp = tp->trieArr[index];
-			tp = new trieTree();
-			tp->trieArr = new trieTree*[CAPACITY_COUNT];
+			trieTree *tptr = new trieTree();
+			tptr->trieArr = new trieTree*[CAPACITY_COUNT];
 			for (int j = 0; j < CAPACITY_COUNT; j++) {
-				tp->trieArr[j] = NULL;
+				tptr->trieArr[j] = NULL;
 			}
-			tp->contain = false;
-		} else {
-			tp = tp->trieArr[index];
+			tptr->contain = false;
+			tp->trieArr[index] = tptr;
 		}
+		tp = tp->trieArr[index];
 	}
 	tp->contain = true;
 	count++;
@@ -98,6 +99,17 @@ void TrieLexicon::addWordsFromFile(string filename) {
 	if(infile.fail()) {
 		error("The Lexicon file dosen't exists.");
 	}
+	while (infile.good() || !infile.eof()) {
+		string line = "";
+		getline(infile, line);
+		// cout << "Line : |" << line << "|" << endl;
+		for (int i = 0 ; i < line.length(); i++) {
+			char ch = line[i];
+			if (!isalpha(ch)) error("Bad content in the file");
+		}
+		add(line);
+	}
+
 	infile.close();
 }
 /*
@@ -123,6 +135,13 @@ bool TrieLexicon::containsWord(string word) {
  * true if the position exists and is not NULL.
  */
 bool TrieLexicon::containsPrefix(string prefix) {
+	if (isEmpty() || prefix == "") return false;
+	trieTree *tp = trie;
+	for (int i = 0; i < prefix.length(); i++) {
+		int index = toupper(prefix[i]) - 'A';
+		if(tp->trieArr[index] == NULL) return false;
+		tp = tp->trieArr[index];
+	}
 	return true;
 }
 /*
@@ -131,5 +150,15 @@ bool TrieLexicon::containsPrefix(string prefix) {
  * reinitialize the lexicon object. and deallocated heap storage.
  */
 void TrieLexicon::clear() {
-
+	deleteTrie(trie);
+	trie = NULL;
+	count = 0;
+}
+void TrieLexicon::deleteTrie(trieTree *tp) {
+	if (tp != NULL) {
+		for (int i = 0; i < CAPACITY_COUNT; i++) {
+			deleteTrie(tp->trieArr[i]);
+		}
+		delete tp;
+	}
 }

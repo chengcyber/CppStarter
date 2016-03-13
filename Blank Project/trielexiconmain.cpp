@@ -12,22 +12,43 @@
 using namespace std;
 
 void printLexicon(TrieLexicon & lex);
+void printString(string word);
+void printContainWord(TrieLexicon & lex, string word);
+void printContainPrefix(TrieLexicon & lex, string prefix);
 
 int main()
 {
-	TrieLexicon lex;
+	TrieLexicon lex("lexicon.txt");
 	printLexicon(lex);
-	lex.add("A");
-	printLexicon(lex);
-	cout << lex.containsWord("A") << endl;
-	// cout << lex.containsWord("b") << endl;
-	// cout << lex.containsWord("C") << endl;
-
-	printLexicon(lex);
+	printContainPrefix(lex, "Ap");
+	printContainWord(lex, "Ap");
+	printContainPrefix(lex, "ApPLe");
+	printContainWord(lex, "ApPLe");
+	printContainPrefix(lex, "vaild");
+	printContainWord(lex, "vaild");
 	return 0;
 }
 
 void printLexicon(TrieLexicon & lex) {
 	cout << "isEmpty? " << lex.isEmpty() << endl;
 	cout << "size: " << lex.size() << endl;	
+	cout << "------lexicon content------" << endl;
+	lex.mapAll(printString);
+	cout << "------END of LEXICON ------" << endl;
+}
+
+void printString(string word) {
+	cout << word << endl;
+}
+
+void printContainWord(TrieLexicon & lex, string word) {
+	cout << "containsWord - " << word << " -" << endl;
+	cout << lex.containsWord(word) << endl;
+	cout << "-----------------------" << endl;
+}
+
+void printContainPrefix(TrieLexicon & lex, string prefix) {
+	cout << "containsPrefix - " << prefix << " -" << endl;
+	cout << lex.containsPrefix(prefix) << endl;
+	cout << "-----------------------" << endl;
 }

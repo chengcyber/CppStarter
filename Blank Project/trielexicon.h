@@ -10,6 +10,7 @@
 
 #include <string>
 
+
 struct trieTree
 {
 	trieTree **trieArr;
@@ -124,6 +125,8 @@ public:
  * each word and client's data. That data can be of whatever type is needed
  * client's callback. 
  */
+ 	// void mapAll(void (*fn)(string)) const;
+ 	// void mapAll(void (*fn)(const string &)) const;
  	template <typename FunctionType>
  	void mapAll(FunctionType fn);
 /*
@@ -141,6 +144,7 @@ private:
 	trieTree *trie;
 	int count ;
 	void deepCopy(const TrieLexicon &src);
+	void deleteTrie(trieTree *tp);
 };
 
 	template <typename FunctionType>
@@ -150,17 +154,19 @@ private:
 		}
 		for (int i = 0; i < 26; i++) {
 			if (t->trieArr[i] != NULL) {
-				word += i + 'A';
+				char ch = i + 'A';
+				word += ch;
 				traversal(t->trieArr[i], fn, word);
-				word -= i + 'A';
+				word = word.substr(0,word.length() - 1);
 			}
 		}
 	}
 	
+
  	template <typename FunctionType>
  	void TrieLexicon::mapAll(FunctionType fn) {
  		// traversal and fn()
- 		traversal(trieTree *&t, FunctionType fn, "");
+ 		traversal(trie, fn, "");
  	}
 
 #endif
