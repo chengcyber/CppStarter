@@ -174,19 +174,39 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\editorbuffer.cpp"
+				RelativePath="..\6 PQ starter\performance.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\editorbuffer.h"
+				RelativePath="..\6 PQ starter\performance.h"
 				>
 			</File>
 			<File
-				RelativePath=".\editorbufferpriv.h"
+				RelativePath="..\6 PQ starter\pqlist.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\SimpleTextEditor.cpp"
+				RelativePath="..\6 PQ starter\PQmain.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\6 PQ starter\pqueue.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6 PQ starter\pqueuetest.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\6 PQ starter\pqueuetest.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6 PQ starter\pqvector.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\6 PQ starter\vector.h"
 				>
 			</File>
 		</Filter>
