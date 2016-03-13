@@ -42,6 +42,10 @@ void executeCommand(EditorBuffer & buffer, string line) {
   }
   if(num == 0) num = 1;
   line = line.substr(index);
+  string oldStr = "";
+  string newStr = "";
+  bool isOld = true;
+  int cpNum = 0;
    switch (toupper(line[0])) {
     case 'I': for (int i = 1; i < line.length(); i++) {
                 buffer.insertCharacter(line[i]);
@@ -67,6 +71,46 @@ void executeCommand(EditorBuffer & buffer, string line) {
                 buffer.deleteWord();
               }
               break;
+    case 'C': 
+              for(int i = 1; i < line.length(); i++) {
+                if(isdigit(line[i]))
+                  cpNum = 10 * cpNum + line[i] - '0'; 
+                else 
+                  break;
+              }
+              buffer.copy(cpNum); 
+              break;
+    case 'X': for(int i = 1; i < line.length(); i++) {
+                if(isdigit(line[i]))
+                  cpNum = 10 * cpNum + line[i] - '0'; 
+                else 
+                  break;
+              }
+              buffer.copy(cpNum); 
+              for(int i = 0; i < cpNum; i++) {
+                buffer.deleteCharacter();
+              }
+              break;
+    case 'S': line = line.substr(1);
+              // cout << "\"" << line << "\"" << endl;
+              if(!buffer.search(line)) {
+                cout << "Not finded!" << endl;
+              }
+              break;
+    case 'R': line = line.substr(1);
+              for(int i = 0; i < line.length(); i++) {
+                if(line[i] == '/') {
+                  isOld = false; continue;
+                }
+                if(isOld)
+                  oldStr += line[i];
+                else
+                  newStr += line[i];
+              }
+              if(!buffer.replace(oldStr, newStr)) {
+                cout << "Not finded!" << endl;
+              }
+    case 'P': buffer.paste(); break;
     case 'J': buffer.moveCursorToStart(); break;
     case 'E': buffer.moveCursorToEnd(); break;
     case 'T': buffer.showContents();break;

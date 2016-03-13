@@ -4,6 +4,7 @@
  * This file implements the buffer.h interface using an array representation.
  */
 #include <iostream>
+#include <string>
 #include "editorbuffer.h"
 #include "vector.h"
 using namespace std;
@@ -18,11 +19,14 @@ const int INITIAL_CAPACITY = 10;
 EditorBuffer::EditorBuffer() {
    capacity = INITIAL_CAPACITY;
    array = new char[capacity];
+   copyArr = NULL;
    length = 0;
    cursor = 0;
+   copyLen = 0;
 }
 EditorBuffer::~EditorBuffer() {
    delete[] array;
+   delete[] copyArr;
 }
 /*
  * Implementation notes: moveCursor methods
@@ -140,4 +144,72 @@ void EditorBuffer::expandCapacity() {
       array[i] = oldArray[i];
    }
    delete[] oldArray;
+}
+
+/*
+ * Implementation note: copy, paste
+ * -------------------------
+ * copy buffer text to an internal array
+ * paste insert the text to the cursor pointed to
+ */
+void EditorBuffer::copy(int n) {
+   copyLen = n;
+   if(copyArr != NULL) delete[] copyArr;
+   copyArr = new char[n];
+   for(int i = 0; i < n; i++) {
+      copyArr[i] = array[cursor+i];
+   }
+}
+void EditorBuffer::paste() {
+   if(copyArr != NULL) {
+      for(int i = 0; i < copyLen; i++) {
+         this->insertCharacter(copyArr[i]);
+      }
+   }
+}
+
+/*
+ * Implementation note: search
+ * -------------------------
+ * go throught all the element in array to get the same char[].
+ * if it finds it, leave the cursor after the last character in str
+ * and return true. If str does not occur between the cursor and the end
+ * of the buffer, then return false.
+ */
+bool EditorBuffer::search(string str) {
+   if(str == "") return false;
+   int index = -1;
+   for(int i = cursor; i < length; i++) {
+      if(index != -1) break;
+      if(array[i] == str[0]) {
+         index = i + 1;
+         for(int j = 1; j < str.length(); j++) {
+            if (array[i + j] != str[j]) {
+               index = -1;
+               break;
+            }
+            index++;
+         }
+      }
+   }
+   if(index == -1) return false;
+   cursor = index;
+   return true;
+}
+
+/*
+ * Implementation note: repalce
+ * -------------------------
+ * search the buffer text, if exists then replace the text.
+ */
+bool EditorBuffer::replace(string oldStr, string newStr) {
+   if(!this->search(oldStr)) return false;
+   cursor -= oldStr.length();
+   for(int i = 0; i < oldStr.length(); i++) {
+      this->deleteCharacter();
+   }
+   for(int i = 0; i < newStr.length(); i++) {
+      this->insertCharacter(newStr[i]);
+   }
+   return true;
 }

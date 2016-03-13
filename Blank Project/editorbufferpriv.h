@@ -16,6 +16,8 @@
 private:
 /* Instance variables */
    char *array;          /* Dynamic array of characters     */
+   char *copyArr; /* Dynamic array of copyed characters */
+   int copyLen;
    int capacity;         /* Allocated size of that array    */
    int length;           /* Number of character in buffer   */
    int cursor;           /* Index of character after cursor */

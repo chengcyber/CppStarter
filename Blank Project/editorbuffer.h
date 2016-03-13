@@ -8,6 +8,7 @@
 #ifndef _editorbuffer_h
 #define _editorbuffer_h
 
+#include <string>
 /*
  * Class: EditorBuffer
  * -------------------
@@ -88,6 +89,33 @@ public:
  */
  	void moveCursorForwardWord();
  	void moveCursorBackwardWord();
+/*
+ * Methods: copy, paste 
+ * Usage: buffer.copy(n)
+ * 		  buffer.paste
+ * ----------------------------------
+ * These function provide the facility that allows user to copy a section
+ * of the buffer text into an internal storage area and then paste it back
+ * in at some other position.
+ */
+ 	void copy(int n);
+ 	void paste();
+/*
+ * Method: search
+ * Usage: buffer.search(str)
+ * ----------------------------------
+ * The function search the array to figure out whether the string exists in
+ * the array.
+ */
+ 	bool search(std::string str);
+/*
+ * Method: replace
+ * Usage: buffer.repalce(oldStr, newStr)
+ * ----------------------------------
+ * The function search the array for oldStr and replace it using
+ * the newStr.
+ */
+ 	bool replace(std::string oldStr, std::string newStr);
 #include "editorbufferpriv.h"
 };
 

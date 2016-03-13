@@ -174,39 +174,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\6 PQ starter\performance.cpp"
+				RelativePath=".\lexicon.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\6 PQ starter\performance.h"
+				RelativePath=".\trielexicon.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\6 PQ starter\pqlist.cpp"
+				RelativePath=".\trielexicon.h"
 				>
 			</File>
 			<File
-				RelativePath="..\6 PQ starter\PQmain.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\6 PQ starter\pqueue.h"
-				>
-			</File>
-			<File
-				RelativePath="..\6 PQ starter\pqueuetest.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\6 PQ starter\pqueuetest.h"
-				>
-			</File>
-			<File
-				RelativePath="..\6 PQ starter\pqvector.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\6 PQ starter\vector.h"
+				RelativePath=".\trielexiconmain.cpp"
 				>
 			</File>
 		</Filter>
